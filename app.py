@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request
+from services.cover_letter import generate_cover_letter
 
 app = Flask(__name__)
 
@@ -11,18 +12,16 @@ def home():
         job_description = request.form["job_description"]
         company_info = request.form["company_info"]
 
-        return f"""
-        <h1>Data Received</h1>
+        cover_letter = generate_cover_letter(
+            cv,
+            job_description,
+            company_info
+        )
 
-        <h2>CV</h2>
-        <p>{cv}</p>
-
-        <h2>Job Description</h2>
-        <p>{job_description}</p>
-
-        <h2>Company Info</h2>
-        <p>{company_info}</p>
-        """
+        return render_template(
+            "result.html",
+            cover_letter=cover_letter
+        )
 
     return render_template("index.html")
 

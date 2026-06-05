@@ -2,27 +2,61 @@
 <html>
 <head>
     <title>CV as Code</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 900px;
+            margin: auto;
+            padding: 30px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .description {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        textarea {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+    </style>
+
 </head>
+
 <body>
+
     <h1>CV as Code</h1>
+
+    <p class="description">
+        Generate cover letters using your CV and a job description.
+    </p>
 
     <form method="POST">
 
         <h3>Your CV</h3>
-        <textarea name="cv" rows="10" cols="80"></textarea>
+        <textarea name="cv" rows="10"></textarea>
 
         <h3>Job Description</h3>
-        <textarea name="job_description" rows="10" cols="80"></textarea>
+        <textarea name="job_description" rows="10"></textarea>
 
         <h3>Company Information</h3>
-        <textarea name="company_info" rows="10" cols="80"></textarea>
-
-        <br><br>
+        <textarea name="company_info" rows="10"></textarea>
 
         <button type="submit">
             Generate Cover Letter
         </button>
 
     </form>
+
 </body>
 </html>
