@@ -27,7 +27,5 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Verify Flask Application
-        run: |
-          python -m py_compile app.py
-          python -m py_compile services/cover_letter.py
+      - name: Run Tests
+        run: pytest -q
