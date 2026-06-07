@@ -1,23 +1,46 @@
+from groq import Groq
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+
+client = Groq(
+    api_key=os.getenv("GROQ_API_KEY")
+)
+
 def generate_cover_letter(
     cv,
     job_description,
     company_info
 ):
-    return f"""
-Dear Hiring Manager,
 
-I am excited to apply for this opportunity.
+    prompt = f"""
+Write a professional cover letter based on the following information.
 
-Based on my experience:
+CV:
+{cv}
 
-{cv[:200]}
+Job Description:
+{job_description}
 
-and the job requirements:
+Company Information:
+{company_info}
 
-{job_description[:200]}
-
-I believe I would be a strong fit for your organization.
-
-Sincerely,
-Candidate
+Requirements:
+- Be professional
+- Be concise
+- Highlight relevant skills
+- Use a formal business tone
 """
+
+    response = client.chat.completions.create(
+        model="llama-3.3-70b-versatile",
+        messages=[
+            {
+                "role": "user",
+                "content": prompt
+            }
+        ]
+    )
+
+    return response.choices[0].message.content
