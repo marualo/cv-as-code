@@ -4,16 +4,16 @@ import os
 
 load_dotenv()
 
-client = Groq(
-    api_key=os.getenv("GROQ_API_KEY")
-)
-
 def generate_cover_letter(
     cv,
     job_description,
     company_info
 ):
 
+    client = Groq(
+        api_key=os.getenv("GROQ_API_KEY")
+    )
+    
     prompt = f"""
 Write a professional cover letter based on the following information.
 
