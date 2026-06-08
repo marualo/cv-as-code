@@ -15,7 +15,7 @@ def generate_cover_letter(
     )
     
     prompt = f"""
-Write a professional cover letter based on the following information.
+Write a professional cover letter based ONLY on the information provided below:
 
 CV:
 {cv}
@@ -26,11 +26,34 @@ Job Description:
 Company Information:
 {company_info}
 
+Before writing the cover letter:
+
+1. Identify the most important requirements from the job description.
+2. Identify the candidate's most relevant skills and experiences from the CV.
+3. Determine the strongest matches between the candidate and the role.
+4. Use those matches to build a tailored cover letter.
+
 Requirements:
-- Be professional
-- Be concise
-- Highlight relevant skills
-- Use a formal business tone
+- Write a complete cover letter with greeting, body, and a professional closing and signature
+- Keep the cover letter between 150 and 200 words and limit it to 3 paragraphs maximum
+- Do not use placeholders such as [Your Name] or [Company Name]
+- Be professional, concise and focused with a formal business tone, but not overly formal
+- Avoid generic statements and clichés
+- Avoid repeating information unnecessarily and repetitive phrases
+- Avoid listing skills in a sequence
+- Show evidence of skills through examples, prioritize evidence over self-description
+- Prefer concrete examples over summaries
+- Do not include information that is not present in the CV, job description, or company information
+- Do not invent skills, experience, achievements, technologies, or qualifications
+- Highlight relevant skills by referring to specific projects or experiences instead of listing technologies
+- Focus on the strongest matches between the candidate profile and the role
+- Support claims with examples from the candidate's experience when possible
+- Mention the company naturally and explain why the role is appealing
+- Use a natural and varied opening sentence
+- The final paragraph must thank the reader and include a professional sign-off.
+- The cover letter should feel personalized and written by a human, not like a generic template
+
+Return only the final cover letter.
 """
 
     try:
