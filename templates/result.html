@@ -13,13 +13,57 @@
         <pre id="cover-letter">{{ cover_letter }}</pre>
     </div>
 
-    <button onclick="copyCoverLetter()" id="copy-button">
-        Copy Cover Letter
+<form action="/regenerate" method="POST">
+
+    <input
+        type="hidden"
+        name="cv"
+        value="{{ cv }}"
+    >
+
+    <input
+        type="hidden"
+        name="job_description"
+        value="{{ job_description }}"
+    >
+
+    <input
+        type="hidden"
+        name="company_info"
+        value="{{ company_info }}"
+    >
+
+    <button
+        type="button"
+        onclick="copyCoverLetter()"
+        id="copy-button"
+    > Copy Cover Letter
     </button>
 
-    <br><br>
+    <button type="submit">
+        Try Again
+    </button>
 
-    <a href="/">Generate Another</a>
+    <input
+        type="text"
+        id="additional_instructions"
+        name="additional_instructions"
+        value="{{ additional_instructions }}"
+        placeholder="Optional: Give additional instructions..."
+        size="60"
+    >
+
+    <button
+        type="button"
+        onclick="clearInstructions()"
+    > Clear
+    </button>
+
+</form>
+
+<br><br>
+
+<a href="/">Generate Another</a>
 
     <script>
         function copyCoverLetter() {
@@ -32,6 +76,10 @@
             setTimeout(() => {
                 button.innerText = 'Copy Cover Letter';
             }, 2000);
+        }
+
+        function clearInstructions() {
+            document.getElementById('additional_instructions').value = '';
         }
     </script>
 

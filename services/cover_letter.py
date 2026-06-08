@@ -7,7 +7,8 @@ load_dotenv()
 def generate_cover_letter(
     cv,
     job_description,
-    company_info
+    company_info,
+    additional_instructions=""
 ):
 
     client = Groq(
@@ -25,6 +26,9 @@ Job Description:
 
 Company Information:
 {company_info}
+
+Additional Instructions:
+{additional_instructions}
 
 Before writing the cover letter:
 
