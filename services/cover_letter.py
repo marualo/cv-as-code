@@ -33,14 +33,24 @@ Requirements:
 - Use a formal business tone
 """
 
-    response = client.chat.completions.create(
-        model="llama-3.3-70b-versatile",
-        messages=[
-            {
-                "role": "user",
-                "content": prompt
-            }
-        ]
-    )
+    try:
+        response = client.chat.completions.create(
+            model="llama-3.3-70b-versatile",
+            messages=[
+                {
+                    "role": "user",
+                    "content": prompt
+                }
+            ]
+        )
+        return response.choices[0].message.content
 
-    return response.choices[0].message.content
+    except Exception as e:
+
+        print(f"Error generating cover letter: {e}")
+        
+        return """
+Sorry, we couldn't generate your cover letter right now.
+
+Please try again later.
+"""
