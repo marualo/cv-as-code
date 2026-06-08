@@ -1,18 +1,40 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Generated Cover Letter</title>
 </head>
+
 <body>
 
     <h1>Generated Cover Letter</h1>
 
     <div>
-        <pre>{{ cover_letter }}</pre>
+        <pre id="cover-letter">{{ cover_letter }}</pre>
     </div>
-    <br>
+
+    <button onclick="copyCoverLetter()" id="copy-button">
+        Copy Cover Letter
+    </button>
+
+    <br><br>
 
     <a href="/">Generate Another</a>
 
+    <script>
+        function copyCoverLetter() {
+            const coverLetter = document.getElementById('cover-letter').innerText;
+            navigator.clipboard.writeText(coverLetter);
+           
+            const button = document.getElementById('copy-button');
+            button.innerText = 'Copied!';
+            
+            setTimeout(() => {
+                button.innerText = 'Copy Cover Letter';
+            }, 2000);
+        }
+    </script>
+
 </body>
+
 </html>
