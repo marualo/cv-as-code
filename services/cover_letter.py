@@ -58,7 +58,8 @@ Requirements:
 - End with a professional sign-off such as "Sincerely," or "Kind regards,"
 - Do not include a name after the sign-off
 - Do not include email addresses, phone numbers, or contact information
-- The final paragraph must thank the reader and include a professional sign-off
+- The final paragraph must thank the reader
+- The professional sign-off must appear on its own line at the end of the cover letter
 - The cover letter should feel personalized and written by a human, not like a generic template
 
 Return only the final cover letter.
