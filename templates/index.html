@@ -41,16 +41,40 @@
         Generate cover letters using your CV and a job description.
     </p>
 
-    <form method="POST">
+    <form method="POST" enctype="multipart/form-data">
+
+        <h3>Upload CV PDF</h3>
+
+        <input
+            type="file"
+            name="cv_file"
+            accept=".pdf"
+        >
+
+        <button
+            type="submit"
+            name="action"
+            value="load_pdf"
+        > Load PDF
+        </button>
 
         <h3>Your CV</h3>
-        <textarea name="cv" rows="10"></textarea>
+        <textarea
+            name="cv"
+            rows="10"
+        >{{ cv if cv else "" }}</textarea>
 
         <h3>Job Description</h3>
-        <textarea name="job_description" rows="10"></textarea>
+        <textarea
+            name="job_description"
+            rows="10"
+        >{{ job_description if job_description else "" }}</textarea>
 
         <h3>Company Information</h3>
-        <textarea name="company_info" rows="10"></textarea>
+        <textarea
+            name="company_info"
+            rows="10"
+        >{{ company_info if company_info else "" }}</textarea>
 
         <button type="submit">
             Generate Cover Letter
