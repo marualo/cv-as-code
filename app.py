@@ -81,5 +81,25 @@ def regenerate():
         additional_instructions=additional_instructions
     )
 
+@app.route("/back", methods=["POST"])
+def back():
+
+    cv = request.form["cv"]
+
+    job_description = request.form[
+        "job_description"
+    ]
+
+    company_info = request.form[
+        "company_info"
+    ]
+
+    return render_template(
+        "index.html",
+        cv=cv,
+        job_description=job_description,
+        company_info=company_info
+    )
+
 if __name__ == "__main__":
     app.run(debug=True)
