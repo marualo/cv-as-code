@@ -1,6 +1,7 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, send_file
 from services.cover_letter import generate_cover_letter
 from services.pdf_parser import extract_text_from_pdf
+from services.pdf_generator import create_pdf
 
 app = Flask(__name__)
 
@@ -99,6 +100,23 @@ def back():
         cv=cv,
         job_description=job_description,
         company_info=company_info
+    )
+
+@app.route("/download-pdf", methods=["POST"])
+def download_pdf():
+
+    cover_letter = request.form["cover_letter"]
+
+    filename = "cover_letter.pdf"
+
+    create_pdf(
+        cover_letter,
+        filename
+    )
+
+    return send_file(
+        filename,
+        as_attachment=True
     )
 
 if __name__ == "__main__":

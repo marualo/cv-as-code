@@ -1,179 +1,197 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-    <title>Generated Cover Letter</title>
-    <style>
-    .toolbar {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        gap: 20px;
-        margin-top: 15px;
-    }
-
-    .left-actions,
-    .right-actions {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-    }
-</style>
-</head>
-
-<body>
-
-    <h1>Generated Cover Letter</h1>
-
-    <div>
-        <textarea
-        id="cover-letter"
-        rows="15"
-        style="width: 100%;"
-        >{{ cover_letter }}</textarea>
-    </div>
-
-<form action="/regenerate" method="POST">
-
-    <input
-        type="hidden"
-        name="cv"
-        value="{{ cv }}"
-    >
-
-    <input
-        type="hidden"
-        name="job_description"
-        value="{{ job_description }}"
-    >
-
-    <input
-        type="hidden"
-        name="company_info"
-        value="{{ company_info }}"
-    >
-
-    <div class="toolbar">
-
-        <div class="left-actions">
-            <button type="submit">
-                Try Again
-            </button>
-
-            <input
-                type="text"
-                id="additional_instructions"
-                name="additional_instructions"
-                value="{{ additional_instructions }}"
-                placeholder="Optional: Give additional instructions..."
-                size="60"
-            >
-
-            <button
-                type="button"
-                onclick="clearInstructions()"
-            > Clear
-            </button>
-        </div>
-
-        <div class="right-actions">
-            <button
-                type="button"
-                onclick="copyCoverLetter()"
-                id="copy-button"
-            > Copy Cover Letter
-            </button>
-
-            <button
-                type="button"
-                onclick="downloadCoverLetter()"
-            > Download
-            </button>
-
-            <select id="download-format">
-                <option value="txt">TXT</option>
-                <option value="pdf">PDF</option>
-            </select>
-        </div>
-
-    </div>
-</form>
-
-<br><br>
-
-<form action="/back" method="POST">
-
-    <input
-        type="hidden"
-        name="cv"
-        value="{{ cv }}"
-    >
-
-    <input
-        type="hidden"
-        name="job_description"
-        value="{{ job_description }}"
-    >
-
-    <input
-        type="hidden"
-        name="company_info"
-        value="{{ company_info }}"
-    >
-
-    <button type="submit">
-        ← Generate Another
-    </button>
-
-</form>
-
-    <script>
-        function copyCoverLetter() {
-            const coverLetter = document.getElementById('cover-letter').value;
-            navigator.clipboard.writeText(coverLetter);
-           
-            const button = document.getElementById('copy-button');
-            button.innerText = 'Copied!';
-            
-            setTimeout(() => {
-                button.innerText = 'Copy Cover Letter';
-            }, 2000);
-        }
-
-        function clearInstructions() {
-            document.getElementById('additional_instructions').value = '';
-        }
-
-        function downloadCoverLetter() {
-            const format =
-                document.getElementById('download-format').value;
-
-            if (format !== 'txt') {
-                alert('PDF download is not implemented yet.');
-                return;
+    <head>
+        <title>Generated Cover Letter</title>
+        <style>
+            .toolbar {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                gap: 20px;
+                margin-top: 15px;
             }
 
-            const content =
-                document.getElementById('cover-letter').value;
+            .left-actions,
+            .right-actions {
+                display: flex;
+                align-items: center;
+            }
+        </style>
+    </head>
 
-            const blob = new Blob(
-                [content],
-                { type: 'text/plain' }
-            );
+    <body>
+        <h1>Generated Cover Letter</h1>
 
-            const url = window.URL.createObjectURL(blob);
+        <div>
+            <textarea
+            id="cover-letter"
+            rows="15"
+            style="width: 100%;"
+            >{{ cover_letter }}</textarea>
+        </div>
 
-            const link = document.createElement('a');
+        <form action="/regenerate" method="POST">
 
-            link.href = url;
-            link.download = 'cover_letter.txt';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            window.URL.revokeObjectURL(url);
-        }
-    </script>
+            <input
+                type="hidden"
+                name="cv"
+                value="{{ cv }}"
+            >
 
-</body>
+            <input
+                type="hidden"
+                name="job_description"
+                value="{{ job_description }}"
+            >
+
+            <input
+                type="hidden"
+                name="company_info"
+                value="{{ company_info }}"
+            >
+
+            <div class="toolbar">
+
+                <div class="left-actions">
+                    <button type="submit">
+                        Try Again
+                    </button>
+
+                    <input
+                        type="text"
+                        id="additional_instructions"
+                        name="additional_instructions"
+                        value="{{ additional_instructions }}"
+                        placeholder="Optional: Give additional instructions..."
+                        size="60"
+                    >
+
+                    <button
+                        type="button"
+                        onclick="clearInstructions()"
+                    > Clear
+                    </button>
+                </div>
+
+                <div class="right-actions">
+                    <button
+                        type="button"
+                        onclick="copyCoverLetter()"
+                        id="copy-button"
+                    > Copy Cover Letter
+                    </button>
+
+                    <button
+                        type="button"
+                        onclick="downloadCoverLetter()"
+                    > Download
+                    </button>
+
+                    <select id="download-format">
+                        <option value="txt">TXT</option>
+                        <option value="pdf">PDF</option>
+                    </select>
+                </div>
+
+            </div>
+        </form>
+
+        <br><br>
+
+        <form action="/back" method="POST">
+
+            <input
+                type="hidden"
+                name="cv"
+                value="{{ cv }}"
+            >
+
+            <input
+                type="hidden"
+                name="job_description"
+                value="{{ job_description }}"
+            >
+
+            <input
+                type="hidden"
+                name="company_info"
+                value="{{ company_info }}"
+            >
+
+            <button type="submit">
+                ← Generate Another
+            </button>
+
+        </form>
+
+        <form
+            id="pdf-download-form"
+            action="/download-pdf"
+            method="POST"
+            style="display: none;"
+        >
+            <input
+                type="hidden"
+                id="pdf-cover-letter"
+                name="cover_letter"
+            >
+        </form>
+
+        <script>
+            function copyCoverLetter() {
+                const coverLetter = document.getElementById('cover-letter').value;
+                navigator.clipboard.writeText(coverLetter);
+                
+                const button = document.getElementById('copy-button');
+                button.innerText = 'Copied!';
+                    
+                setTimeout(() => {
+                    button.innerText = 'Copy Cover Letter';
+                }, 2000);
+            }
+
+            function clearInstructions() {
+                document.getElementById('additional_instructions').value = '';
+            }
+
+            function downloadCoverLetter() {
+                const format =
+                    document.getElementById('download-format').value;
+
+                if (format === 'pdf') {
+                    const content =
+                        document.getElementById('cover-letter').value;
+                        
+                    document.getElementById('pdf-cover-letter').value = content;
+                    
+                    document.getElementById('pdf-download-form').submit();
+                    return;
+                }
+
+                const content = document.getElementById('cover-letter').value;
+
+                const blob = new Blob(
+                    [content],
+                    { type: 'text/plain' }
+                );
+
+                const url = window.URL.createObjectURL(blob);
+
+                const link = document.createElement('a');
+
+                link.href = url;
+                link.download = 'cover_letter.txt';
+
+                document.body.appendChild(link);
+
+                link.click();
+
+                document.body.removeChild(link);
+
+                window.URL.revokeObjectURL(url);
+            }
+        </script>
+    </body>
 
 </html>
