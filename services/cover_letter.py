@@ -1,82 +1,71 @@
 from groq import Groq
+# Groq SDK used to send prompts to the LLM
 from dotenv import load_dotenv
+# Loads variables from the .env file
 import os
+# Provides access to operating system features like env variables
 
 load_dotenv()
+# Makes variables from .env available through os.getenv()
 
+# Generates a cover letter using the candidate's CV, job description, company information,
+# and optional additional instructions provided by the user.
 def generate_cover_letter(
     cv,
     job_description,
     company_info,
     additional_instructions=""
 ):
-
+    # Creates an authenticated Groq client using the API key stored in the env variables
     client = Groq(
         api_key=os.getenv("GROQ_API_KEY")
     )
+
+    # Load the main cover letter prompt template
+    with open(
+        "prompts/cover_letter_prompt.txt",
+        "r",  # Read mode
+        encoding="utf-8"  # Ensures proper handling of special characters
+    ) as file:
+        prompt_template = file.read()
     
-    prompt = f"""
-Write a professional cover letter based ONLY on the information provided below:
+    # Replace template placeholders with the user's data
+    prompt = prompt_template.replace(
+        "{{cv}}",
+        cv
+    )
 
-CV:
-{cv}
+    prompt = prompt.replace(
+        "{{job_description}}",
+        job_description
+    )
 
-Job Description:
-{job_description}
+    prompt = prompt.replace(
+        "{{company_info}}",
+        company_info
+    )
 
-Company Information:
-{company_info}
-
-Before writing the cover letter:
-
-1. Identify the most important requirements from the job description.
-2. Identify the candidate's most relevant skills and experiences from the CV.
-3. Determine the strongest matches between the candidate and the role.
-4. Use those matches to build a tailored cover letter.
-
-Requirements:
-- Write a complete cover letter with greeting, body, and a professional closing
-- Keep the cover letter between 100 and 200 words and limit it to 3 paragraphs maximum
-- Do not use placeholders such as [Your Name] or [Company Name]
-- Be professional, concise and focused with a formal business tone, but not overly formal
-- Avoid generic statements and clichés
-- Do not repeat information unnecessarily
-- Avoid repetitive phrases
-- Avoid listing skills in a sequence
-- Avoid including contact information
-- Show evidence of skills through examples, prioritize evidence over self-description
-- Prefer concrete examples over summaries
-- Never include information that is not present in the CV, job description, or company information
-- Ignore contact details, headers, footers, page numbers, and formatting artifacts that may appear when text is extracted from a PDF
-- Never invent skills, experience, achievements, technologies, or qualifications
-- Highlight relevant skills by referring to specific projects or experiences instead of listing technologies
-- Focus on the strongest matches between the candidate profile and the role
-- Support claims with examples from the candidate's experience when possible
-- Mention the company naturally and explain why the role is appealing
-- Avoid opening with "I am excited to apply" or similar generic openings
-- Use a varied and role-specific opening sentence
-- End with a professional sign-off such as "Sincerely," or "Kind regards,"
-- Do not include a name after the sign-off
-- Do not include email addresses, phone numbers, or contact information
-- The final paragraph must thank the reader
-- The professional sign-off must appear on its own line at the end of the cover letter
-- The cover letter should feel personalized and written by a human, not like a generic template
-
-Return only the final cover letter.
-"""
     if additional_instructions:
 
-        prompt += f"""
-        
-Additional Instructions:
-{additional_instructions}
+        # Load the optional additional instructions template
+        with open(
+            "prompts/additional_instructions_prompt.txt",
+            "r",
+            encoding="utf-8"
+        ) as file:
+            additional_prompt = file.read()
 
-- Follow these additional instructions unless they conflict with the CV, job description, or company information
-"""
+        additional_prompt = additional_prompt.replace(
+            "{{additional_instructions}}",
+            additional_instructions
+        )
+
+        prompt += additional_prompt
 
     try:
+        # Send the completed prompt to the LLM and generate a cover letter
         response = client.chat.completions.create(
-            model="llama-3.3-70b-versatile",
+            model="llama-3.3-70b-versatile",  # A LLM model from Groq
             messages=[
                 {
                     "role": "user",
@@ -84,11 +73,12 @@ Additional Instructions:
                 }
             ]
         )
-        return response.choices[0].message.content
+        return response.choices[0].message.content  # Extracts and returns the generated cover letter from the API response
 
-    except Exception as e:
+    # Return a failure message if the API request fails
+    except Exception as error:
 
-        print(f"Error generating cover letter: {e}")
+        print(f"Error generating cover letter: {error}")
         
         return """
 Sorry, we couldn't generate your cover letter right now.

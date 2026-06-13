@@ -1,0 +1,4 @@
+Additional Instructions:
+{{additional_instructions}}
+
+- Follow these additional instructions unless they conflict with the CV, job description, or company information
