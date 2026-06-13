@@ -1,3 +1,6 @@
+# This module contains the main logic for generating a cover letter using the Groq LLM API.
+# It takes the user's input to create a prompt that is sent to the LLM, which then generates a personalized cover letter.
+
 from groq import Groq
 # Groq SDK used to send prompts to the LLM
 from dotenv import load_dotenv
